@@ -1,0 +1,53 @@
+Photoplotter Info File: C:/Userdata/Eagle Projects/20xx PIR Demo & Eval/20xx_PIR_Demo TIS.gpi
+
+ Date              : 12/22/2005 11:53:19a
+ Plotfile          : C:/Userdata/Eagle Projects/20xx PIR Demo & Eval/20xx_PIR_Demo TIS.smb
+ Apertures         : generated: 
+ Device            : Gerber photoplotter with RS-274-X aperture generation
+
+Parameter settings:
+
+ Emulate Apertures : no
+ Emulate Thermal   : no
+ Emulate Annulus   : no
+ Tolerance Draw  + :  0.00 %
+ Tolerance Draw  - :  0.00 %
+ Tolerance Flash + :  0.00 %
+ Tolerance Flash - :  0.00 %
+ Rotate            : no
+ Mirror            : no
+ Optimize          : yes
+ Auto fit          : yes
+ OffsetX           : 0inch
+ OffsetY           : 0inch
+
+Plotfile Info:
+
+ Coordinate Format : 2.4
+ Coordinate Units  : Inch
+ Data Mode         : Absolute
+ Zero Suppression  : None
+ End Of Block      : *
+
+Emulated Apertures:
+
+ -------- Requested Aperture --------  ------ Used Aperture ------
+
+ Shape     Size                  used  Code     Shape     Size
+
+ octagon   0.0720inch               3  D12      draw      0.0144inch
+ octagon   0.1200inch               1  D14      draw      0.0240inch
+ octagon   0.1800inch               1  D15      draw      0.0360inch
+
+Apertures used:
+
+ Code     Shape     Size                  used
+
+ D10      octagon   0.0860inch               2
+ D11      octagon   0.0760inch              20
+ D12      draw      0.0144inch               3
+ D13      round     0.1206inch               4
+ D14      draw      0.0240inch               1
+ D15      draw      0.0360inch               1
+ D16      round     0.0500inch              10
+

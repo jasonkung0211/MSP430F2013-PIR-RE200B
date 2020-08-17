@@ -10,15 +10,19 @@
 
 "fet" 
 
-"--erase_main" 
+"--verify_all" 
+
+"--erase_main_and_info" 
 
 "--derivative" 
 
 "MSP430F20x3" 
 
+"--allow_locked_flash_access" 
+
 "--protocol" 
 
-"automatic" 
+"spy-bi-wire" 
 
 "--eem" 
 

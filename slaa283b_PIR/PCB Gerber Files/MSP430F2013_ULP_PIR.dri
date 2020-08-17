@@ -1,0 +1,48 @@
+Drill Station Info File: C:/Userdata/Eagle Projects/20xx PIR Demo & Eval/20xx_PIR_Demo TIS.dri
+
+ Date              : 12/22/2005 11:52:28a
+ Drills            : C:/Userdata/Eagle Projects/20xx PIR Demo & Eval/20xx_PIR_Demo TIS.drl
+ Device            : Excellon drill station
+
+Parameter settings:
+
+ Tolerance Drill + :  2.50 %
+ Tolerance Drill - :  2.50 %
+ Rotate            : no
+ Mirror            : no
+ Optimize          : yes
+ Auto fit          : yes
+ OffsetX           : 0inch
+ OffsetY           : 0inch
+ Layers            : Drills Holes
+
+Drill File Info:
+
+ Data Mode         : Absolute
+ Units             : 1/1000 Inch
+
+Drill Tolerances:
+
+ -- Requested --  -- Used Drill --
+
+ Size       used  Code  Size
+
+ 0.1005inch     4  T07   0.1000inch
+
+Drills used:
+
+ Code  Size       used
+
+ T01   0.0140inch    10
+ T02   0.0320inch     3
+ T03   0.0350inch     2
+ T04   0.0360inch    20
+ T05   0.0440inch     1
+ T06   0.0710inch     1
+ T07   0.1000inch     4
+
+Total number of drills: 41
+
+Plotfiles:
+
+ C:/Userdata/Eagle Projects/20xx PIR Demo & Eval/20xx_PIR_Demo TIS.drd

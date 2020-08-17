@@ -56,7 +56,7 @@
                 </option>
                 <option>
                     <name>DdfFileName</name>
-                    <state>$TOOLKIT_DIR$\config\debugger\msp430f149.ddf</state>
+                    <state>$TOOLKIT_DIR$\config\debugger\msp430f2013.ddf</state>
                 </option>
                 <option>
                     <name>ProcTMS</name>
@@ -161,11 +161,11 @@
                 </option>
                 <option>
                     <name>Erase</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>EMUVerifyDownloadP7</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>EraseOptionSlaveP7</name>
@@ -198,11 +198,11 @@
                 </option>
                 <option>
                     <name>AllowLockedFlashAccessP7</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CRadioProtocolType</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCRadioModuleTypeSlave</name>
@@ -267,7 +267,7 @@
                 </option>
                 <option>
                     <name>CRadioAutoManualType</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>ExternalCodeDownload</name>

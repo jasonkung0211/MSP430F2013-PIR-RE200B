@@ -23,35 +23,23 @@ static unsigned int result_old = 0;         // Storage for last conversion
 void main(void)
 {
   WDTCTL = WDTPW+WDTTMSEL+WDTCNTCL+WDTSSEL; // ACLK/32768, int timer: ~10s
-  
-  // Set DCO to 1MHz
-  BCSCTL1 = CALBC1_1MHZ;
+  BCSCTL1 = CALBC1_1MHZ;                    // Set DCO to 1MHz
   DCOCTL = CALDCO_1MHZ;
-  
   BCSCTL1 |= DIVA_2;                        // ACLK = VLO/4
   BCSCTL3 |= LFXT1S_2;
-  
+
   P1OUT = 0x10;                             // P1OUTs
   P1SEL = 0x08;                             // Select VREF function
   P1DIR = 0xEF;                             // Unused pins as outputs
-  
   P2OUT = 0x00 + SENSOR_PWR;                // P2OUTs
   P2SEL &= ~SENSOR_PWR;                     // P2.7 = GPIO
   P2DIR = 0xff;                             // Unused pins as outputs
 
-  /******************************************************************************
-   * SD16_A configuration
-   ******************************************************************************/  
-  SD16CTL = SD16VMIDON | SD16REFON | SD16SSEL_1;        // 1.2V ref, SMCLK
-  SD16INCTL0 = SD16GAIN_32 | SD16INCH_4 | SD16INTDLY_0;                // PGA = 32x, Diff inputs A4- & A4+
-  SD16CCTL0 =  SD16SNGL | SD16IE | SD16OSR_1024; // Single conversion, 1024OSR, Int enable
-
+  SD16CTL = SD16VMIDON + SD16REFON + SD16SSEL_1;// 1.2V ref, SMCLK
+  SD16INCTL0 = SD16GAIN_16 + SD16INCH_4;     // PGA = 16x, Diff inputs A4- & A4+
+  SD16CCTL0 =  SD16SNGL + SD16IE + SD16OSR_512;// Single conversion, 256OSR, Int enable
   SD16CTL &= ~SD16VMIDON;                   // VMID off: used to settle ref cap
   SD16AE = SD16AE1 + SD16AE2;               // P1.1 & P1.2: A4+/- SD16_A inputs
-  /******************************************************************************
-   * SD16_A configuration
-   ******************************************************************************/
-  
 
   // Wait for PIR sensor to settle: 1st WDT+ interval
   P1SEL |= LED_OUT;                         // Turn LED on with ACLK (for low Icc)
@@ -82,9 +70,7 @@ __interrupt void SD16ISR(void)
     result_old = result_old - result_new;
 
   if (result_old > THRESHOLD)               // If motion detected...
-  {
      P1OUT |= LED_OUT;                      // Turn LED on
-  }
 
   result_old = SD16MEM0;                    // Save last conversion
 
