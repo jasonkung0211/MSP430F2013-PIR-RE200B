@@ -28,4 +28,20 @@
  7. 直流準位R2=R3=R7=R8=2R4=13.6K歐姆
  8. Gain 90dB=Gain/2=45dB=177.8*(Vout/Vin)，R5 =(Gain-1)* R4 ， R5= 1.2M歐姆
  9. C4,C8 = 1/(2PI * R5 * 10HZ) = 13nF，choose 15nF 
-  
+ 
+ ## 焦電型 PIR sensor RE200B 參數與分析
+ ![image](image/RE200B_data.png)
+ 1. 受光輻射限制在人體的輻射最敏感的8至14mm範圍。
+ 2. JFET S極端子pin2通常通過大約100 K的下拉電阻接地，並放大信號其增益為10,000，在其輸出端產生從0到Vcc的過渡。
+ 3. 應將濾波良好的3至15 volts 連接到JFET D極 pin1。Datasheet使用CRC PI型filter。
+ 4. 放大器的頻寬通常限制為大約10Hz以阻絕高頻雜訊。
+ 5. RE200B TO5 package。
+ 
+ ![image](image/RE200B_howto.png)
+ ![image](image/RE200B_TYPICAL_CONFIGURATION.png)
+
+ 
+ 
+ # 菲涅耳透鏡（Frenzel Lens）作為空間之補償
+ 
+   
