@@ -41,6 +41,10 @@
  ![image](image/RE200B_howto.png)
  ![image](image/RE200B_TYPICAL_CONFIGURATION.png)
 
+
+## 市售模組 HC-SR505 參數與分析
+ ![image](image/HC-SR505_pir_module_circuit.png)
+
  
  
  # 菲涅耳透鏡（Frenzel Lens）作為空間之補償
