@@ -36,6 +36,7 @@
  3. 應將濾波良好的3至15 volts 連接到JFET D極 pin1。Datasheet使用CRC PI型filter。
  4. 放大器的頻寬通常限制為大約10Hz以阻絕高頻雜訊。
  5. RE200B TO5 package。
+ 6. PIR sensor 本體是由一個N通道JFET構成的共汲極放大器(common-drain)
  
  ![image](image/RE200B_howto.png)
  ![image](image/RE200B_TYPICAL_CONFIGURATION.png)
