@@ -18,7 +18,7 @@
   FlashPro-430 and GangPro-430
   
 ## 低雜音長距離 PIR sensor 電路設計與分析
-![image](image/pir_low_pass.png.jpg)
+ ![image](image/pir_low_pass.png)
  1. PIR 之信號應取交流之部分(C2 與 C6)，故必須提供1/2Vcc電壓(R2 and R3)。
  2. OPA開環路增益約為10^5，反饋電路降低整體電路的增益會使系統比較穩定。OPA的開環增益隨頻率快速的下降，限制頻寬(C4,C8)。
  3. OPA輸出加上RC Filter可以降低OPA輸出之雜音。
