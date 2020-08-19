@@ -16,5 +16,8 @@
 # Flash tools 
   UniFlash
   FlashPro-430 and GangPro-430
+  
+## 低雜音長距離 PIR sensor 電路設計
+![image](image/MSP430_JTAG_2_wire_pinout.jpg)
  
   
