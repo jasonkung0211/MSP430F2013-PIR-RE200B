@@ -44,6 +44,9 @@
 
 ## 市售模組 HC-SR505 參數與分析
  ![image](image/HC-SR505_pir_module_circuit.png)
+1. Gain = 20 * (3M/10k) = 6000, IC內部有20倍放大OPA輸入
+2. 實測距離約在2m~3m
+3. 改動10K為5K後，實測可達3m~4m，再高容易誤報
 
  
  
