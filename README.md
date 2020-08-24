@@ -2,10 +2,10 @@
 ![image](image/pinout.png)
 1. MSP430F20x3家族特色: 具有16-bit sigma-delta A/D converter(差動輸入)
 2. 16個暫存器
-   R0 __ program counter
-   R1 __ stack pointer
-   R2 __ status register
-   R3 __ constant generator
+   R0 __ program counter,
+   R1 __ stack pointer,
+   R2 __ status register,
+   R3 __ constant generator,
    R4~R15 __ general-purpose registers
    
  * Instruction Set(指令集)
