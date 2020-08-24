@@ -1,5 +1,16 @@
 # MSP430F2013
 ![image](image/pinout.png)
+1. MSP430F20x3家族特色: 具有16-bit sigma-delta A/D converter(差動輸入)
+2. 16個暫存器
+   R0 __ program counter
+   R1 __ stack pointer
+   R2 __ status register
+   R3 __ constant generator
+   R4~R15 __ general-purpose registers
+   
+ * Instruction Set(指令集)
+
+
 # IAR embedded workbench
  1. download: https://www.iar.com/iar-embedded-workbench/#!?architecture=MSP430
  2. tutorial: https://youtu.be/9QzkK1CaEmM
