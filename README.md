@@ -43,6 +43,7 @@
  
  ![image](image/RE200B_howto.png)
  ![image](image/RE200B_TYPICAL_CONFIGURATION.png)
+ ![image](image/PIR_SENSOR.png)
 
 
 ## 市售模組 HC-SR505 參數與分析
