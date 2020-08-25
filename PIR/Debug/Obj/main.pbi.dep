@@ -1,4 +1,5 @@
-main.pbi: C:\Users\JK\Documents\MSP430F2013\PIR\main.c \
+main.pbi: \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\430\inc\intrinsics.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\430\inc\in430.h \
   C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\430\inc\msp430x20x3.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\430\inc/in430.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\430\inc/intrinsics.h
+  C:\Users\JK\Documents\MSP430F2013\PIR\main.c

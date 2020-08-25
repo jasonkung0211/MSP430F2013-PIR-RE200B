@@ -16,7 +16,7 @@
 
 #define   LED_OUT         BIT0              // Bit location for LED
 #define   SENSOR_PWR      BIT7              // Bit location for power to sensor
-#define   THRESHOLD       50                // Threshold for motion
+#define   THRESHOLD       70                // Threshold for motion
 
 static unsigned int result_old = 0;         // Storage for last conversion
 
@@ -36,7 +36,7 @@ void main(void)
   P2DIR = 0xff;                             // Unused pins as outputs
 
   SD16CTL = SD16VMIDON + SD16REFON + SD16SSEL_1;// 1.2V ref, SMCLK
-  SD16INCTL0 = SD16GAIN_16 + SD16INCH_4;     // PGA = 16x, Diff inputs A4- & A4+
+  SD16INCTL0 = SD16GAIN_32 + SD16INCH_4;     // PGA = 16x, Diff inputs A4- & A4+
   SD16CCTL0 =  SD16SNGL + SD16IE + SD16OSR_512;// Single conversion, 256OSR, Int enable
   SD16CTL &= ~SD16VMIDON;                   // VMID off: used to settle ref cap
   SD16AE = SD16AE1 + SD16AE2;               // P1.1 & P1.2: A4+/- SD16_A inputs
@@ -91,4 +91,24 @@ __interrupt void watchdog_timer(void)
   }
   else
     P1OUT &= ~LED_OUT;                      // If yes, turn off LED, measure on next loop
+}
+
+
+/******************************************************
+ Timer A0 interrupt service routine
+ 
+當 TAIFG旗標被設置，將執行Timer_A()
+並且自動清除該旗標(TA0CTL&=~(TAIFG);   //clear the flag)
+******************************************************/
+#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+#pragma vector=TIMERA0_VECTOR
+__interrupt void Timer_A (void)
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(TIMERA0_VECTOR))) Timer_A (void)
+#else
+#error Compiler not supported!
+#endif
+{
+  P1OUT ^= 0x01;                         // Toggle P1.0
+  CCR0 += 50000;                            // Add Offset to CCR0
 }

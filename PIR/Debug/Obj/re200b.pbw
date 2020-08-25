@@ -7432,6 +7432,20 @@
     "scope": null
   },
   {
+    "ID": "c:@F@Timer_A",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void Timer_A(void)",
+    "location": {
+      "column": "18",
+      "line": "105",
+      "path": "C:\\Users\\JK\\Documents\\MSP430F2013\\PIR\\main.c"
+    },
+    "name": "Timer_A",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
     "ID": "c:intrinsics.h@287@macro@__INTRINSICS_H",
     "What": "MacroDef",
     "defdec": "Def",

@@ -1,15 +1,94 @@
 # MSP430F2013
+
 ![image](image/pinout.png)
 1. MSP430F20x3家族特色: 具有16-bit sigma-delta A/D converter(差動輸入)
 2. 16個暫存器
-   R0 __ program counter,
-   R1 __ stack pointer,
-   R2 __ status register,
-   R3 __ constant generator,
-   R4~R15 __ general-purpose registers
-   
- * Instruction Set(指令集)
+   > R0 __ program counter 
+   > R1 __ stack pointer   
+   > R2 __ status register    
+   > R3 __ constant generator    
+   > R4~R15 __ general-purpose registers     
+      
+3. Instruction Set(指令集)
+![image](image/addr_and_formats.png)
 
+4. Operating Modes
+   MSP430有五種低功耗工作模式。透過中斷可以將設備從五個低功耗模式中喚醒，處理請求並恢復到從中斷程序返回時進入低功耗模式。
+   
+   • Active mode (AM)    
+   – All clocks are active    
+   • Low-power mode 0 (LPM0)    
+   – CPU is disabled    
+   – ACLK and SMCLK remain active    
+   – MCLK is disabled    
+   • Low-power mode 1 (LPM1)    
+   – CPU is disabled    
+   – ACLK and SMCLK remain active. MCLK is disabled    
+   – DCO's dc-generator is disabled if DCO not used in active mode    
+   • Low-power mode 2 (LPM2)    
+   – CPU is disabled    
+   – MCLK and SMCLK are disabled    
+   – DCO's dc-generator remains enabled    
+   – ACLK remains active    
+   • Low-power mode 3 (LPM3)    
+   – CPU is disabled    
+   – MCLK and SMCLK are disabled    
+   – DCO's dc-generator is disabled    
+   – ACLK remains active    
+   • Low-power mode 4 (LPM4)    
+   – CPU is disabled    
+   – ACLK is disabled    
+   – MCLK and SMCLK are disabled    
+   – DCO's dc-generator is disabled    
+   – Crystal oscillator is stopped    
+   
+5. Interrupt Vector Addresses(中斷向量位址) address range of 0FFFFh to 0FFC0h.
+![image](image/interrupt.png)
+6. Special Function Registers:
+    
+    PUC ("Power Up Clear") 上電清除信號.
+    POR ("Power On Reset") 重置信號.
+    
+    00h-bit0 WDTIE Watchdog Timer interrupt enable. Inactive if watchdog mode is selected. Active if Watchdog Timer is configured in interval timer mode.    
+    00h-bit1 OFIE Oscillator fault interrupt enable.    
+    00h-bit4 NMIIE (Non)maskable interrupt enable.    
+    00h-bit5 ACCVIE Flash access violation interrupt enable.    
+    
+    02h-bit0 WDTIFG Set on watchdog timer overflow (in watchdog mode) or security key violation. Reset on VCC power-on or a reset    
+             condition at the RST/NMI pin in reset mode.    
+    02h-bit1 OFIFG Flag set on oscillator fault.    
+    02h-bit2 PORIFG Power-On Reset interrupt flag. Set on VCC power-up.    
+    02h-bit3 RSTIFG External reset interrupt flag. Set on a reset condition at RST/NMI pin in reset mode. Reset on VCC power-up.    
+    02h-bit4 NMIIFG Set via RST/NMI pin.    
+    
+7. Memory Organization
+![image](image/memory.png)
+
+8. System clock 
+
+ • Auxiliary clock (ACLK), sourced either from a 32768-Hz watch crystal or the internal LF oscillator.    
+ • Main clock (MCLK), the system clock used by the CPU. 主時脈工廠預設16M    
+ • Sub-Main clock (SMCLK), the sub-system clock used by the peripheral modules.外設用    
+ 
+ ![image](image/clock.png)
+ 
+ 9. Brownout 掉電保護    
+      The brownout circuit is implemented to provide the proper internal reset signal to the device during power on and
+      power off.    
+ 
+ 10. Digital I/O
+ There is one 8-bit I/O port implemented—port P1—and two bits of I/O port P2:    
+* All individual I/O bits are independently programmable.
+* Any combination of input, output, and interrupt condition is possible.
+* Edge-selectable interrupt input capability for all the eight bits of port P1 and the two bits of port P2.
+* Read and write access to port-control registers is supported by all instructions.
+* Each I/O has an individually programmable pullup or pulldown resistor.
+
+11. Watchdog Timer (WDT+)看門狗
+   主要功能是在以下情況下執行系統重置：   
+   - 出現軟體問題。如果選擇的時間間隔到期，則會生成系統重置。如果看門狗 
+   - 不需要時，可以禁用或將其配置為間隔計時器，並且在選定的時間間隔生成中斷。 
+    
 
 # IAR embedded workbench
  1. download: https://www.iar.com/iar-embedded-workbench/#!?architecture=MSP430
