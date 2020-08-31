@@ -2,30 +2,27 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2416390769</fileChecksum>
+  <fileChecksum>4273194077</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\dual_PIR.pbd</file>
+      <file>$TOOLKIT_DIR$\config\lnk430F2013.xcl</file>
+      <file>$PROJ_DIR$\Debug\Obj\MSP430F2013_dual_PIR.pbi</file>
       <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
       <file>$PROJ_DIR$\Debug\Obj\MSP430F2013_dual_PIR.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\dual_PIR.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\msp430x20x3.h</file>
       <file>$PROJ_DIR$\MSP430F2013_dual_PIR.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\MSP430F2013_dual_PIR.pbi</file>
-      <file>$TOOLKIT_DIR$\config\lnk430F2013.xcl</file>
-      <file>$PROJ_DIR$\Debug\Exe\PIR.hex</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
       <file>$PROJ_DIR$\Debug\Exe\dual_PIR.d43</file>
-      <file>$PROJ_DIR$\Debug\Exe\dual_PIR.a43</file>
-      <file>$PROJ_DIR$\main.c</file>
+      <file>$TOOLKIT_DIR$\inc\msp430x20x3.h</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\Debug\Obj\dual_PIR.pbd</name>
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 7</file>
+          <file> 3</file>
         </tool>
       </inputs>
     </file>
@@ -34,30 +31,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 7</file>
+          <file> 3</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 3</file>
+          <file> 5</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 0 2</file>
+          <file> 9 0 4</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 5 0 2</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\PIR.hex</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 8 3 1</file>
+          <file> 9 0 4</file>
         </tool>
       </inputs>
     </file>
@@ -66,16 +54,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 8 3 1</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\dual_PIR.a43</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 8 3 1</file>
+          <file> 2 5 7</file>
         </tool>
       </inputs>
     </file>
@@ -84,7 +63,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 10</file>
+          <file> 8</file>
         </tool>
       </outputs>
     </file>
@@ -94,29 +73,29 @@
     <outputs>
       <file>$TOOLKIT_DIR$\inc\in430.h</file>
       <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$TOOLKIT_DIR$\inc\msp430x20x3.h</file>
       <file>$PROJ_DIR$\MSP430F2013_dual_PIR.c</file>
+      <file>$TOOLKIT_DIR$\inc\msp430x20x3.h</file>
+      <file>$PROJ_DIR$\Release\Exe\dual_PIR.txt</file>
       <file>$PROJ_DIR$\Release\Obj\MSP430F2013_dual_PIR.pbi</file>
       <file>$PROJ_DIR$\Release\Obj\dual_PIR.pbd</file>
       <file>$PROJ_DIR$\Release\Obj\MSP430F2013_dual_PIR.r43</file>
-      <file>$PROJ_DIR$\Release\Exe\dual_PIR.txt</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\MSP430F2013_dual_PIR.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 4</file>
+          <file> 5</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 6</file>
+          <file> 7</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 2 0 1</file>
+          <file> 3 0 1</file>
         </tool>
       </inputs>
     </file>
@@ -125,7 +104,7 @@
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 4</file>
+          <file> 5</file>
         </tool>
       </inputs>
     </file>
@@ -134,7 +113,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 7</file>
+          <file> 4</file>
         </tool>
       </outputs>
     </file>
