@@ -61,13 +61,23 @@ static int  aDCrESULT[5] = {0,0,0,0,0};
 static int  aDCaMP=0;
 static int  aDCaVR = 128;
 
-static int  eDGEpOS = 1;
-static int  eDGEnEG = -1;
+//static int  eDGEpOS = 1;
+//static int  eDGEnEG = -1;
 
-static int  aDClIMIT = 6;
+static int  aDClIMIT = 2;
 static int  aDClIMITtEMP = 0;
 static int  aDClIMITcNT = 0;
+static int  aDCiNTEGRAL = 0;
+static int  aDCiNTEGRALlIMIT = 100;//105
+static int  aDCiNTEGRALbASE = 4;
 
+int limitFB(int limit, int amplitude, int base)
+{
+  if (amplitude > limit) limit=limit+base;
+  if (amplitude < limit) limit=limit-base;
+  if (amplitude = limit) limit=limit;
+  return limit;
+}
 
 int tABLaMPfREQ(int frequency, int amplitude)
 {
@@ -175,16 +185,16 @@ void main(void)
     lEDfLICKER=100;
   }
   
-  if ((tRIGtIMEoUT_F>=70) && (tRIGtIMEoUT_F<=160))
+  if ((tRIGtIMEoUT_F>=166) && (tRIGtIMEoUT_F<=666))
   {
     tRIGtIMEoUT=tRIGtIMEoUT_F;
   }
   else
   {
-    tRIGtIMEoUT=125;
+    tRIGtIMEoUT=500;
   }
   
- 
+  /*
   for(init_led_onoff_cycle=0; init_led_onoff_cycle <=iLEDcYCLE; init_led_onoff_cycle++)
   {
     P2OUT ^= WDT_PIN;
@@ -199,10 +209,11 @@ void main(void)
      for(LED_LOOP=0; LED_LOOP<=lEDfLICKER; LED_LOOP++) { P1OUT ^= LED_OUT; }
      P1OUT &= ~LED_OUT;
     }
-  }  
+  } 
+  */
   P1OUT &= ~LED_OUT; 
   P1OUT |= TEST_PIN;                          //for test
-  P1OUT |= TEST_PIN;                          //for test
+  P1OUT |= SPICS_PIN;                         //for test
   
   WDTCTL = WDTPW+WDTTMSEL+WDTCNTCL+WDTSSEL+WDTIS1+WDTIS0; //10K~12K(VLO)/64(WDTIS1+WDTIS0)=156.25(6.4ms)~187.5(5.3ms)
   IE1 |= WDTIE;                               // Enable WDT interrupt   
@@ -218,6 +229,8 @@ void main(void)
 __interrupt void SD16ISR(void)
 {     
   int i=0;
+  int temp1=0;
+  int temp2=0;
   SD16CTL &= ~SD16REFON;                      // Turn off SD16_A ref
   switch(selectADC)
   {
@@ -231,120 +244,213 @@ __interrupt void SD16ISR(void)
       aDCtEMP[3] = aDCtEMP[2];
       aDCtEMP[2] = aDCtEMP[1];
       aDCtEMP[1] = aDCtEMP[0];
-      aDCtEMP[0] = ADCANY4;      
+      aDCtEMP[0] = ADCANY4;
+      
       eDGEdET[0] = ((aDCtEMP[0]+aDCtEMP[2])-(2*aDCtEMP[1]));
       eDGEdET[1] = ((aDCtEMP[1]+aDCtEMP[3])-(2*aDCtEMP[2]));
       eDGEdET[2] = ((aDCtEMP[2]+aDCtEMP[4])-(2*aDCtEMP[3])); 
+      eDGErESULT = eDGEdET[0]+eDGEdET[1]+eDGEdET[2];
       }
       //^
-      //if ((eDGEdET[0]>=0)&&(eDGEdET[2]<=eDGEnEG)&&(eDGEdET[3]>=0)&&(eDGEdET[1]<=eDGEnEG))
+      //if(eDGErESULT<=-2)
       if ((eDGEdET[0]>=-1)&&(eDGEdET[2]>=-1)&&(eDGEdET[1]<=-2)&&(aDCtEMP[2]>aDCtEMP[0]))
-      //if ((eDGEdET[0]>=-1)&&(eDGEdET[2]>=-1)&&(eDGEdET[1]<=-2))
-      //if (eDGErESULT<=eDGEnEG)
-      //if (eDGEdET[1]<=eDGEnEG)
-      //if ((aDCtEMP[3]>=aDCtEMP[4])&&(aDCtEMP[3]>aDCtEMP[5])&&(aDCtEMP[2]>=aDCtEMP[1])&&(aDCtEMP[2]>aDCtEMP[0]))
       {
         if (eDGErESULToLD>=0)
         {  
-          //if ((aDCaMP>=aDClIMIT)&&(aDCtEMP[2]>aDCtEMP[1])&&(aDCtEMP[2]>aDCtEMP[0]))
-          {  
-          //eDGEfREQ = bASEfREQ/(eDGEcOUNT);
-          if (aDCaVR>=aDCtEMP[2]) aDCaMP = aDCaVR-aDCtEMP[2];
-          else     aDCaMP = aDCtEMP[2]-aDCaVR;
+          eDGEfREQ = bASEfREQ/(eDGEcOUNT);
+          if (aDCaVR>=aDCtEMP[0]) aDCaMP = aDCaVR-aDCtEMP[0];
+          else                    aDCaMP = aDCtEMP[0]-aDCaVR;
           //aDCaMP = tABLaMPfREQ( eDGEfREQ, aDCaMP );
-          //eDGEcOUNT = 0;
-          }
-          if (aDCaMP>=aDClIMIT) 
-          {
-            eDGEfREQ = bASEfREQ/(eDGEcOUNT);
-            //if (aDCaVR>=aDCtEMP[2]) aDCaMP = aDCaVR-aDCtEMP[2];
-            //else     aDCaMP = aDCtEMP[2]-aDCaVR;
-            //aDCaMP = tABLaMPfREQ( eDGEfREQ, aDCaMP );            
-            P1OUT &= ~TEST_PIN;
-            P1OUT &= ~SPICS_PIN;
-            eDGEcOUNT = 0;
-          }
+          P1OUT &= ~TEST_PIN;
+          P1OUT &= ~SPICS_PIN;
+          eDGEcOUNT = 0;
         }
         //eDGErESULToLD = eDGErESULT;
-        eDGErESULToLD = -1;        
+        eDGErESULToLD = -1; 
+        eDGEdET[1] = 0;
       }
       //v
-      //else if ((eDGEdET[0]<=0)&&(eDGEdET[2]>=eDGEpOS)&&(eDGEdET[3]<=0)&&(eDGEdET[1]>=eDGEpOS))
+      //else if(eDGErESULT>=2)
       else if ((eDGEdET[0]<=1)&&(eDGEdET[2]<=1)&&(eDGEdET[1]>=2)&&(aDCtEMP[2]<aDCtEMP[0]))
-      //else if ((eDGEdET[0]<=1)&&(eDGEdET[2]<=1)&&(eDGEdET[1]>=2))
-      //else if (eDGErESULT>=eDGEpOS)
-      //else if (eDGEdET[1]>=eDGEpOS)
-      //else if ((aDCtEMP[3]<=aDCtEMP[4])&&(aDCtEMP[3]<aDCtEMP[5])&&(aDCtEMP[2]<=aDCtEMP[1])&&(aDCtEMP[2]<aDCtEMP[0]))
       {
         if (eDGErESULToLD<0)
         {   
-          
-          //if ((aDCaMP>=aDClIMIT)&&(aDCtEMP[2]<aDCtEMP[1])&&(aDCtEMP[2]<aDCtEMP[0]))
-          {
-          //eDGEfREQ = bASEfREQ/(eDGEcOUNT);
-          if (aDCaVR>=aDCtEMP[2]) aDCaMP = aDCaVR-aDCtEMP[2];
-          else     aDCaMP = aDCtEMP[2]-aDCaVR;
+          eDGEfREQ = bASEfREQ/(eDGEcOUNT);
+          if (aDCaVR>=aDCtEMP[0]) aDCaMP = aDCaVR-aDCtEMP[0];
+          else     aDCaMP = aDCtEMP[0]-aDCaVR;
           //aDCaMP = tABLaMPfREQ( eDGEfREQ, aDCaMP );
-          //eDGEcOUNT = 0;  
-          }
-          if (aDCaMP>=aDClIMIT) 
-          {
-            eDGEfREQ = bASEfREQ/(eDGEcOUNT);
-            //if (aDCaVR>=aDCtEMP[2]) aDCaMP = aDCaVR-aDCtEMP[2];
-            //else     aDCaMP = aDCtEMP[2]-aDCaVR;
-            //aDCaMP = tABLaMPfREQ( eDGEfREQ, aDCaMP );
-            P1OUT &= ~TEST_PIN;
-            P1OUT &= ~SPICS_PIN;
-            eDGEcOUNT = 0;
-          }
+          P1OUT &= ~TEST_PIN;
+          P1OUT &= ~SPICS_PIN;
+          eDGEcOUNT = 0;
         }
         //eDGErESULToLD = eDGErESULT;
         eDGErESULToLD = 1;
+        eDGEdET[1] = 0;
       }
       
       else 
       {
-        aDCaVR = (aDCtEMP[0]+aDCtEMP[1]+aDCtEMP[2]+aDCtEMP[3]+aDCtEMP[4])/5;
-        //aDCaVR=128;
+        //aDCaVR = ((aDCaVR)*8)/10+((aDCtEMP[0]+aDCtEMP[1]+aDCtEMP[2]+aDCtEMP[3]+aDCtEMP[4])/25);
+        aDCaVR=128;
+        temp1=(aDCtEMP[0]+aDCtEMP[1]+aDCtEMP[2]+aDCtEMP[3]+aDCtEMP[4])/4;
+        temp1=limitFB(aDClIMIT,aDCaMP,2);
+        aDClIMIT=(aDClIMIT*5+temp1*5)/10;
+        //aDClIMIT=aDClIMIT-1;
+        if (aDClIMIT<=2) aDClIMIT = 2; 
+        /*
+        temp=(aDCtEMP[0]+aDCtEMP[1]+aDCtEMP[2]+aDCtEMP[3]+aDCtEMP[4])/5;
+        temp=limitFB(aDCaVR,temp);
+        aDCaVR=(aDCaVR*8+temp*2)/10;
+        */
+        /*
+        temp=(aDCtEMP[0]+aDCtEMP[1]+aDCtEMP[2]+aDCtEMP[3]+aDCtEMP[4])/5;
+        temp=limitFB(aDCaVR,temp,2);
+        aDCaVR=(aDCaVR+temp)/2;
+        */
       }
       
       if ((eDGEfREQ>=3)&&(eDGEfREQ<=55)&&(aDCaMP>=aDClIMIT))      //0.3Hz~5Hz
       {          
          
-          eDGEfREQtEMP[4]  = eDGEfREQtEMP[3];
-          eDGEfREQtEMP[3]  = eDGEfREQtEMP[2];
-          eDGEfREQtEMP[2]  = eDGEfREQtEMP[1];
-          eDGEfREQtEMP[1]  = eDGEfREQtEMP[0];
-          eDGEfREQtEMP[0]  = eDGEfREQ;   
-          aDCrESULT[4]     = aDCrESULT[3];
-          aDCrESULT[3]     = aDCrESULT[2];
-          aDCrESULT[2]     = aDCrESULT[1];
-          aDCrESULT[1]     = aDCrESULT[0];
-          aDCrESULT[0]     = aDCaMP;
+        eDGEfREQtEMP[4]  = eDGEfREQtEMP[3];
+        eDGEfREQtEMP[3]  = eDGEfREQtEMP[2];
+        eDGEfREQtEMP[2]  = eDGEfREQtEMP[1];
+        eDGEfREQtEMP[1]  = eDGEfREQtEMP[0];
+        eDGEfREQtEMP[0]  = eDGEfREQ;   
+        aDCrESULT[4]     = aDCrESULT[3];
+        aDCrESULT[3]     = aDCrESULT[2];
+        aDCrESULT[2]     = aDCrESULT[1];
+        aDCrESULT[1]     = aDCrESULT[0];
+        aDCrESULT[0]     = aDCaMP;
         
-          if (aDClIMITcNT>=5) aDClIMITcNT=5;
-          else                aDClIMITcNT++;
-          for (i=0; i<aDClIMITcNT; i++)
+        if (aDClIMITcNT>=5) aDClIMITcNT=5;
+        else                aDClIMITcNT++;
+        /*
+        for (i=0; i<aDClIMITcNT; i++)
+        {
+          aDClIMITtEMP=aDClIMITtEMP+aDCrESULT[i];
+          aDCiNTEGRAL =((aDCrESULT[i]*eDGEfREQtEMP[i])+aDCiNTEGRAL);
+        }
+        */
+        aDClIMITtEMP=aDClIMITtEMP+aDCrESULT[aDClIMITcNT];
+        //aDCiNTEGRAL =((aDCrESULT[aDClIMITcNT]*eDGEfREQtEMP[aDClIMITcNT])+aDCiNTEGRAL);
+        aDCiNTEGRAL =(aDCrESULT[aDClIMITcNT]+aDCiNTEGRAL);
+        //aDClIMITtEMP=aDClIMITtEMP/aDClIMITcNT;
+        //aDClIMIT=(aDClIMIT+aDClIMITtEMP)/6;         
+        //if (aDClIMIT<=2) aDClIMIT = 2;   
+          
+        //if(((aDCiNTEGRAL>=aDCiNTEGRALlIMIT)&&(aDClIMITcNT>=2))||((aDCiNTEGRAL<aDCiNTEGRALlIMIT)&&(aDClIMITcNT>=5)))
+        if((aDCiNTEGRAL>=(aDCiNTEGRALlIMIT*15/10))&&(aDClIMITcNT>=1)&&(aDClIMITcNT<=4))
+        {                        
+          if (aDClIMITcNT==1) 
           {
-            aDClIMITtEMP=aDClIMITtEMP+aDCrESULT[i];
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+              TRIGGER_Count=0;
+          }          
+          if (aDClIMITcNT==2) 
+          {
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+              TRIGGER_Count=0;
           }
-          aDClIMITtEMP=aDClIMITtEMP/aDClIMITcNT;
-          aDClIMIT=(aDClIMITtEMP/5);
-         
-          if (aDClIMIT<=6) aDClIMIT = 6;
+          if (aDClIMITcNT==3) 
+          {
+            /*
+            if ((aDCrESULT[0]==aDCrESULT[1])&&(aDCrESULT[0]==aDCrESULT[2]))
+            {
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+            }
+            else
+            */
+            {
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+              TRIGGER_Count=0;
+            }
+          }
+          if (aDClIMITcNT==4) 
+          {
+            
+            if ((aDCrESULT[0]==aDCrESULT[1])&&(aDCrESULT[0]==aDCrESULT[2])&&(aDCrESULT[0]==aDCrESULT[3]))
+            {
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+            }
+            else
+            
+            {
+              eDGEcOUNT=0;
+              eDGEfREQ=0;
+              eDGErESULT=0;          
+              aDCiNTEGRAL=0;
+              aDClIMITtEMP=0;
+              aDClIMITcNT=0;
+              TRIGGER_Count=0;
+            }
+          }
+        }
+        if(aDClIMITcNT>=5)
+        {
+          temp2=limitFB(aDCiNTEGRALlIMIT,aDCiNTEGRAL,4);
+          aDCiNTEGRALlIMIT=(aDCiNTEGRALlIMIT+temp2)/2;
+          aDCiNTEGRAL=0;
+          aDClIMITtEMP=0;
+          aDClIMITcNT=0;
+          /*
           eDGEcOUNT=0;
           eDGEfREQ=0;
-          eDGErESULT=0;
-          TRIGGER_Count=0;
+          eDGErESULT=0;          
+          aDCiNTEGRAL=0;
           aDClIMITtEMP=0;
+          aDClIMITcNT=0;
+          */
+        }
+        /*
+        if((aDCiNTEGRAL<aDCiNTEGRALlIMIT)&&(aDClIMITcNT>=5))
+        {
+          aDCiNTEGRALlIMIT=aDCiNTEGRALlIMIT-aDCiNTEGRALbASE;
+          aDCiNTEGRAL=0;
+          aDClIMITtEMP=0;
+          aDClIMITcNT=0;
+        }
+        if((aDCiNTEGRAL>aDCiNTEGRALlIMIT)&&(aDClIMITcNT>=5))
+        {
+          aDCiNTEGRALlIMIT=aDCiNTEGRALlIMIT+aDCiNTEGRALbASE;
+          aDCiNTEGRAL=0;
+          aDClIMITtEMP=0;
+          aDClIMITcNT=0;
+        }
+        */
+  
+        
       }
       else
-      //else if ((eDGEfREQ>55)||(eDGEfREQ<3))
       {
-          //eDGEcOUNT=0;
-          eDGEfREQ=0;
-          eDGErESULT=0;
-          aDClIMITtEMP=0;
+        eDGEfREQ=0;
+        eDGErESULT=0;
+        aDClIMITtEMP=0;
       }
       
       __bis_SR_register_on_exit(SCG1+SCG0);   // Return to LPM3 after reti
@@ -373,8 +479,12 @@ __interrupt void watchdog_timer(void)
   P1OUT |= SPICS_PIN; //for debug
   
   if (eDGEcOUNT < bASEfREQ) eDGEcOUNT++;
-  else eDGEcOUNT = bASEfREQ;
- 
+  else 
+  {
+    eDGEcOUNT = bASEfREQ;
+    aDCiNTEGRAL=0;
+    aDClIMITcNT=0;
+  }
   
   if(TRIGGER_Count>=tRIGtIMEoUT) 
   { 

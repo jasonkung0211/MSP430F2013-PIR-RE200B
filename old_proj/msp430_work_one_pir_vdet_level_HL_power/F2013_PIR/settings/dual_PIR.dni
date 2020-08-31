@@ -1,14 +1,14 @@
 [State Storage]
-Control Register=1
+Control Register=65070
 [Sequencer]
-Control Register=1
-NextState0=1
-NextState1=1
+Control Register=65070
+NextState0=65070
+NextState1=65070
 [Action Register]
 Break=1
 State Storage=1
 [DebugChecksum]
-Checksum=1569767028
+Checksum=693342161
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -50,20 +50,20 @@ ShowSource=1
 [TraceHelper]
 Enabled=0
 ShowSource=1
-[CallStackLog]
-Enabled=0
-[DriverProfiling]
-Enabled=0
-Mode=325674680
-Graph=0
-Symbiont=0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=7274591
+Graph=0
+Symbiont=0
 [Breakpoints]
 Count=0
 [FET]
