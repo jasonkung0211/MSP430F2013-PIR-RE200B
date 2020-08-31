@@ -1,14 +1,14 @@
 [State Storage]
-Control Register=65070
+Control Register=65130
 [Sequencer]
-Control Register=65070
-NextState0=65070
-NextState1=65070
+Control Register=65130
+NextState0=65130
+NextState1=65130
 [Action Register]
-Break=1
-State Storage=1
+Break=3
+State Storage=3
 [DebugChecksum]
-Checksum=693342161
+Checksum=1794706947
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -61,7 +61,7 @@ LogFile=_ ""
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=7274591
+Mode=106954768
 Graph=0
 Symbiont=0
 [Breakpoints]
