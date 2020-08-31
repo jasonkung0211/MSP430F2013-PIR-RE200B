@@ -7,7 +7,7 @@
 //  0-00 released 8-10-2020- Initial release
 //
 //  K. Jason
-//  Yadong Security Co Inc.
+//  Yadongsecurity Co Inc.
 //  August 2020
 //  Built with IAR Embedded Workbench Version: 7.20.1
 //*****************************************************************************
