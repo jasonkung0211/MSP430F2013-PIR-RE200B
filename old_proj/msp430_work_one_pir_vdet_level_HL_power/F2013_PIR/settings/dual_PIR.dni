@@ -1,14 +1,14 @@
 [State Storage]
-Control Register=64072
+Control Register=1
 [Sequencer]
-Control Register=64072
-NextState0=64072
-NextState1=64072
+Control Register=1
+NextState0=1
+NextState1=1
 [Action Register]
-Break=3
-State Storage=3
+Break=1
+State Storage=1
 [DebugChecksum]
-Checksum=2017414648
+Checksum=1569767028
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -27,7 +27,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [RecentFlashDownload]
-Path=D:\msp430_work\F2013_PIR\Debug\Exe\dual_PIR.d43
+Path=D:\temp-20190624\PIR\code\V11\msp430_work_one_pir_vdet_level_HL_power-20200416\msp430_work_one_pir_vdet_level_HL_power\F2013_PIR\Debug\Exe\dual_PIR.d43
 [InterruptLog]
 LogEnabled=0
 SumEnabled=0
@@ -50,23 +50,22 @@ ShowSource=1
 [TraceHelper]
 Enabled=0
 ShowSource=1
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [CallStackLog]
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=326376448
+Mode=325674680
 Graph=0
 Symbiont=0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\MSP430F2013_dual_PIR.c}.249.11@1" 1 0 0 0 "" 0 ""
-Count=1
+Count=0
 [FET]
 Clock mode=38
 Extended Clock mode=-1
